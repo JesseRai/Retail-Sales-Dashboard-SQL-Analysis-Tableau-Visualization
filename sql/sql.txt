@@ -1,0 +1,70 @@
+create table sales (
+	sale_id serial primary key,
+	customer_id text,
+	order_date date,
+	region text,
+	product_category text,
+	sales numeric,
+	profit numeric,
+	quantity int
+	);
+
+INSERT INTO sales (customer_id, order_date, region, product_category, sales, profit, quantity) VALUES
+(1, '2025-01-15', 'East', 'Technology', 1200.00, 300.00, 3),
+(2, '2025-01-18', 'West', 'Furniture', 850.00, 200.00, 2),
+(3, '2025-02-02', 'South', 'Office Supplies', 250.00, 80.00, 5),
+(4, '2025-02-14', 'East', 'Furniture', 600.00, 120.00, 1),
+(5, '2025-03-01', 'North', 'Technology', 1500.00, 500.00, 4),
+(3, '2025-03-10', 'West', 'Office Supplies', 300.00, 100.00, 6),
+(1, '2025-03-15', 'South', 'Technology', 2000.00, 700.00, 5),
+(2, '2025-04-01', 'East', 'Office Supplies', 275.00, 90.00, 3),
+(5, '2025-04-15', 'North', 'Furniture', 900.00, 250.00, 2),
+(4, '2025-04-28', 'West', 'Technology', 1750.00, 600.00, 4),
+(2, '2025-05-03', 'South', 'Furniture', 720.00, 180.00, 2),
+(1, '2025-05-16', 'East', 'Technology', 1600.00, 550.00, 3),
+(3, '2025-06-01', 'North', 'Office Supplies', 200.00, 60.00, 4),
+(4, '2025-06-20', 'West', 'Furniture', 780.00, 190.00, 2),
+(5, '2025-06-30', 'South', 'Technology', 2100.00, 750.00, 6);
+
+select 
+	date_trunc('month', order_date) as month,
+	round(sum(sales), 2) as total_sales,
+	round(sum(profit), 2) as total_profit
+from sales
+group by month
+order by month;
+
+SELECT 
+    region,
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(profit), 2) AS total_profit
+FROM sales
+GROUP BY region
+ORDER BY total_sales DESC;
+
+select
+	product_category,
+	round(sum(sales), 2) as total_sales,
+	round(sum(profit), 2) as total_profit
+from sales
+group by product_category
+order by total_sales desc;
+
+select
+	product_category,
+	round(sum(sales), 2) as total_sales,
+	round(sum(profit), 2) as total_profit,
+	round(sum(profit) / sum(sales) * 100, 2) as profit_margin_percent
+from sales 
+group by product_category
+order by profit_margin_percent desc;
+
+select 
+	customer_id,
+	count(*) as total_orders,
+	round(sum(sales), 2) as total_sales,
+	round(avg(sales), 2) as avg_order_value,
+	round(sum(sales), 2) as ltv
+from sales
+group by customer_id
+order by ltv desc; 
