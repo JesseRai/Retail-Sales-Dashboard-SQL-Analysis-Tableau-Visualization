@@ -1,4 +1,4 @@
-# Retail Sales Dashboard: SQL Analysis & Tableau Visualization
+# Retail Sales Dashboard: SQL Analysis 
 
 This project demonstrates end-to-end data analysis using PostgreSQL for data aggregation and Tableau for dynamic visualizations. It simulates a retail sales dataset and explores performance across time, region, and product category, while generating business-ready insights.
 
